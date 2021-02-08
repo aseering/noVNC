@@ -128,6 +128,10 @@ protocol stream.
   - The `serververification` event is fired when the server identity
     must be confirmed by the user.
 
+[`pointerlock`](#pointerlock)
+  - The `pointerlock` event is fired when the Pointer Lock is acquired (or
+    released) by the canvas.
+
 ### Methods
 
 [`RFB.approveServer()`](#rfbapproveserver)
@@ -174,6 +178,9 @@ protocol stream.
 
 [`RFB.toDataURL()`](#rfbtodataurl)
   - Return the current content of the screen as data-url encoded image file.
+
+[`RFB.requestPointerLock()`](#rfbrequestPointerLock)
+  - Requests that the RFB canvas acquire a Pointer Lock.
 
 ### Details
 
@@ -322,6 +329,32 @@ properties are also available, depending on the value of `type`:
 The `RFB.approveServer()` method is used to signal that the user has
 verified the server identity provided in a `serververification` event
 and that the connection can continue.
+
+#### desktopname
+
+The `desktopname` event is fired when the name of the remote desktop
+changes. The `detail` property is an `Object` with the property `name`
+which is a `DOMString` specifying the new name.
+
+#### capabilities
+
+The `capabilities` event is fired whenever an entry is added or removed
+from `RFB.capabilities`. The `detail` property is an `Object` with the
+property `capabilities` containing the new value of `RFB.capabilities`.
+
+#### pointerlock
+
+The `pointerlock` event is fired when the state of the canvas' Pointer Lock has
+changed, either because it has successfully acquired the lock and will have
+full control of the mouse pointer, or because the lock was released by the user
+pressing the ESC key or performing a browser-specific gesture. The `detail`
+property is an `Object` with the property `pointerlock` containing whether the
+lock is currently held or not.
+
+#### RFB.disconnect()
+
+The `RFB.disconnect()` method is used to disconnect from the currently
+connected server.
 
 ##### Syntax
 
@@ -544,3 +577,22 @@ RFB.toDataURL(type, encoderOptions);
 
 **`encoderOptions`** *Optional*
   - A number between 0 and 1 indicating the image quality.
+
+**`text`**
+  - A `DOMString` specifying the clipboard data to send.
+
+#### RFB.requestPointerLock()
+
+The `RFB.requestPointerLock()` method is used to request that the RFB canvas
+hold a [Pointer
+Lock](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API), which
+hides the mouse cursor and provides relative motion events. This must be called
+directly from an event handler where a user has directly interacted with the
+browser for the browser to allow this.
+
+If the acquisition of the pointer lock is successful, a `pointerlock` event
+will be fired.
+
+##### Syntax
+
+    RFB.requestPointerLock( );
