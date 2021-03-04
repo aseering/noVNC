@@ -1054,6 +1054,7 @@ export default class RFB extends EventTargetMixin {
             } else if (pos.y > this._fbHeight) {
                 pos.y = this._fbHeight;
             }
+            this._cursor.move(pos.x, pos.y);
         } else {
             pos = clientToElement(ev.clientX, ev.clientY,
                                   this._canvas);
@@ -1164,8 +1165,10 @@ export default class RFB extends EventTargetMixin {
             document.mozPointerLockElement === this._canvas
         ) {
             this._pointerLock = true;
+            this._cursor.setEmulateCursor(true);
         } else {
             this._pointerLock = false;
+            this._cursor.setEmulateCursor(false);
         }
         this.dispatchEvent(new CustomEvent(
             "pointerlock",
