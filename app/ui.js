@@ -1376,10 +1376,10 @@ const UI = {
         // AND in fullscreen.
         if (
             UI.connected &&
-            (document.fullscreenElement || // alternative standard method
-             document.mozFullScreenElement || // currently working methods
-             document.webkitFullscreenElement ||
-             document.msFullscreenElement) &&
+//            (document.fullscreenElement || // alternative standard method
+//             document.mozFullScreenElement || // currently working methods
+//             document.webkitFullscreenElement ||
+//             document.msFullscreenElement) &&
             (document.pointerLockElement !== undefined ||
                 document.mozPointerLockElement !== undefined)
         ) {
