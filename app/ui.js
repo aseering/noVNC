@@ -295,6 +295,8 @@ const UI = {
     addExtraKeysHandlers() {
         document.getElementById("noVNC_toggle_extra_keys_button")
             .addEventListener('click', UI.toggleExtraKeys);
+        document.getElementById("noVNC_toggle_pwr_button")
+            .addEventListener('click', UI.togglePwr);
         document.getElementById("noVNC_toggle_ctrl_button")
             .addEventListener('click', UI.toggleCtrl);
         document.getElementById("noVNC_toggle_windows_button")
@@ -1672,6 +1674,17 @@ const UI = {
             btn.classList.remove("noVNC_selected");
         } else {
             UI.sendKey(KeyTable.XK_Control_L, "ControlLeft", true);
+            btn.classList.add("noVNC_selected");
+        }
+    },
+
+    togglePwr() {
+        const btn = document.getElementById('noVNC_toggle_pwr_button');
+        if (btn.classList.contains("noVNC_selected")) {
+            UI.sendKey(KeyTable.XK_F13, "F13", false);
+            btn.classList.remove("noVNC_selected");
+        } else {
+            UI.sendKey(KeyTable.XK_F13, "F13", true);
             btn.classList.add("noVNC_selected");
         }
     },
